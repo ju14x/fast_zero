@@ -12,3 +12,23 @@ def test_root_should_return_ok_and_hello():
 
     assert response.status_code == HTTPStatus.OK
     assert response.json() == {'message': 'Olá!'}
+
+
+def test_root_should_return_html():
+    client = TestClient(app)
+
+    response = client.get('/html')
+
+    assert response.status_code == HTTPStatus.OK
+    assert (
+        response.text
+        == """
+    <html>
+      <head>
+        <title> Nosso olá mundo!</title>
+      </head>
+      <body>
+        <h1> Olá Mundo </h1>
+      </body>
+    </html>"""
+    )
